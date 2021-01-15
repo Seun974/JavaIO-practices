@@ -10,9 +10,21 @@ public class App
         //practice 1 run data
         File characters = new File("src/main/resources/randomText.txt");
         System.out.println(readCharacters(characters).toString());
+
         //practice 2 run
         File lines = new File("src/main/resources/lineNames.txt");
         System.out.println(readLines(lines).toString());
+
+        //practise 3 run
+        File objectsDestination = new File("src/main/resources/object_destination.txt");
+        write(objectsDestination, "collection with five string objects");
+
+        //practise 4 run.
+        // here I copied the objects created in practice 2 and moved...
+        //...to folder for practice3 (String of 5 objects)
+        File source = new File("src/main/resources/lineNames.txt");
+        File destination = new File("src/main/resources/object_destination.txt");
+        copy(source, destination);
 
     }
 
@@ -43,7 +55,32 @@ public class App
         }
         return strings;
     }
-    public static
+    public static void write(File destination, String objects){
+        try(FileWriter writer = new FileWriter(destination)){
+            if (!destination.exists()){
+                destination.createNewFile();
+            }
+            writer.write(objects);
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
+    public static void copy(File source, File destination){
+        try(
+                BufferedInputStream in = new BufferedInputStream(new FileInputStream(source));
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destination))
+        ){
+           byte[] buffer = new byte[1024];
+           int bytesRead;
+           while((bytesRead = in.read(buffer)) > 0){
+               out.write(buffer, 0, bytesRead);
+               out.flush();
+           }
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
 
 }
 
