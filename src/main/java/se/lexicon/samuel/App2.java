@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //SERIALIZATION PRACTICE 5
-public class app2 {
+public class App2 {
 
     public static void main(String[] args) {
 
